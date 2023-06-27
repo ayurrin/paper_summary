@@ -94,8 +94,7 @@ def generate_summary(text):
             {"role": "user", "content": text},
         ],
     )
-    if response.status_code != 200:
-        st.error('Failed to generate summary using ChatGPT API.')
+    
 
     
     output_msg = response["choices"][0]["message"]["function_call"]["arguments"]

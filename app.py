@@ -84,26 +84,18 @@ def generate_summary(text):
     # - この研究ではどのようなアプローチを行ったのか？
     # - どのような結果や結論が得られたか
     # '''
-    if st.session_state["api_key"] == "":
-        import pickle
-
-        # 保存したresponseオブジェクトを読み込むファイルパス
-        file_path = "../response.pkl"
-
-        # pickleファイルからresponseオブジェクトを読み込む
-        with open(file_path, "rb") as file:
-            response = pickle.load(file)
-    else:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0613",
-            functions=functions,
-            messages=[
-                # {"role":"system", "content":content},#精度はこれがある方がよい
-                {"role": "user", "content": text},
-            ],
-        )
-        if response.status_code != 200:
-            st.error('Failed to generate summary using ChatGPT API.')
+   
+    
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-0613",
+        functions=functions,
+        messages=[
+            # {"role":"system", "content":content},#精度はこれがある方がよい
+            {"role": "user", "content": text},
+        ],
+    )
+    if response.status_code != 200:
+        st.error('Failed to generate summary using ChatGPT API.')
 
     
     output_msg = response["choices"][0]["message"]["function_call"]["arguments"]
@@ -172,7 +164,7 @@ def main():
             st.write('---')
             
             
-            if st.button(f'論文 {i} に質問する', key=f'question_button_{i}'):
+            if st.button(f'ChatGPTに質問する', key=f'question_button_{i}'):
                 # 論文の要約を生成
                 st.session_state['papers'][i-1]['paper_summary']  = generate_summary(summary)
                 paper_summary = paper['paper_summary']

@@ -141,7 +141,6 @@ def main():
             # YYYYMMDD形式の文字列をdatetimeオブジェクトに変換
             start_date = start_date_input if start_date_input else one_week_ago.strftime('%Y%m%d')
             end_date = end_date_input if end_date_input else now.strftime('%Y%m%d')
-            st.write(start_date)
             # arXiv APIを使用して論文を検索
             papers = search_arxiv_papers(query, start_date, end_date)
             if papers:

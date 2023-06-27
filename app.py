@@ -90,7 +90,7 @@ def generate_summary(text):
         model="gpt-3.5-turbo-0613",
         functions=functions,
         messages=[
-            # {"role":"system", "content":content},#精度はこれがある方がよい
+            {"role":"system", "content":content},#精度はこれがある方がよい
             {"role": "user", "content": text},
         ],
     )
